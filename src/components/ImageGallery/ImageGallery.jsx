@@ -1,5 +1,6 @@
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { List } from './ImageGallery.styled';
+import PropTypes from 'prop-types';
 
 export const ImageGallery = ({ images, handleModal }) => (
   <List>
@@ -13,3 +14,13 @@ export const ImageGallery = ({ images, handleModal }) => (
     ))}
   </List>
 );
+
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  handleModal: PropTypes.func.isRequired,
+};

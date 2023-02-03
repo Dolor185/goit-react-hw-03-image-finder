@@ -7,6 +7,7 @@ import getImages from 'components/API/Api';
 import { LoadMore } from '../LoadMore/LoadMore';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
+import { Container } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -68,13 +69,13 @@ export class App extends Component {
         <Searchbar onSubmit={this.formSubmit} />
         {status === 'pending' && <Loader />}
         {status === 'resolved' && (
-          <div>
+          <Container>
             <ImageGallery
               images={this.state.images}
               handleModal={this.handleModal}
             />
             {images.length !== 0 && <LoadMore onLoadMore={this.onLoadMore} />}
-          </div>
+          </Container>
         )}
         {showModal && (
           <Modal onClose={this.toggleModal} modalImg={this.state.modalImg} />
