@@ -1,6 +1,7 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Container, Form, Input, Button } from './Searchbar.styled';
 import { ReactComponent as SearchIcon } from '../../icons/icons8-search.svg';
+import { toast } from 'react-toastify';
 
 export class Searchbar extends Component {
   state = {
@@ -9,7 +10,14 @@ export class Searchbar extends Component {
 
   handeSubmit = e => {
     e.preventDefault();
+
+    if (this.state.inquiry.trim() === '') {
+      toast.error('Empty request! Please fill in the search field. ');
+      return;
+    }
+
     this.props.onSubmit(this.state.inquiry);
+    this.setState({ inquiry: '' });
   };
 
   handleChange = e => {

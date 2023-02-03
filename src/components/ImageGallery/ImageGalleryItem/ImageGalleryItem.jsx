@@ -1,7 +1,9 @@
-export default function ImageGalleryItem() {
+import { Item, Image } from './ImageGalleryItem.styled';
+
+export const ImageGalleryItem = ({ webformatURL, index }) => {
   return (
-    <li>
-      <img src="" alt="" />{' '}
-    </li>
+    <Item>
+      <Image src={webformatURL} alt="" />
+    </Item>
   );
-}
+};

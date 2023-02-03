@@ -1,9 +1,10 @@
-import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
+import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+import { List } from './ImageGallery.styled';
 
-export default function ImageGallery() {
-  return (
-    <ul>
-      <ImageGalleryItem />
-    </ul>
-  );
-}
+export const ImageGallery = ({ images }) => (
+  <List>
+    {images.map(({ id, webformatURL }, index) => (
+      <ImageGalleryItem key={id} webformatURL={webformatURL} index={index} />
+    ))}
+  </List>
+);
