@@ -20,7 +20,6 @@ export class Modal extends Component {
 
   render() {
     const { modalImg } = this.props;
-    console.log(modalImg);
     return (
       <BackDrop onClick={this.onBackdropClick}>
         <Box>
