@@ -26,17 +26,19 @@ export class App extends Component {
     if (oldInquiry !== inquiry || oldPage !== page) {
       this.setState({ status: 'pending' });
       const response = getImages(inquiry, page);
-      setTimeout(() => {
-        response.then(res => {
-          if (res.data.hits.length === 0) {
-            toast.error('Nothing was found');
-          }
-          this.setState(({ images }) => ({
-            images: [...images, ...res.data.hits],
-          }));
-          this.setState({ status: 'resolved' });
-        });
-      }, 1000);
+
+      response.then(res => {
+        if (res.data.hits.length === 0) {
+          toast.error('Nothing was found');
+        }
+        this.setState(({ images }) => ({
+          images: [...images, ...res.data.hits],
+        }));
+        this.setState({ status: 'resolved' });
+        setTimeout(() => {
+          window.scrollTo(0, 10000);
+        }, 0);
+      });
     }
   }
 
