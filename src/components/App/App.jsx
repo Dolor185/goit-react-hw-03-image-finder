@@ -11,7 +11,7 @@ import { Container } from './App.styled';
 
 export class App extends Component {
   state = {
-    status: 'idle',
+    showLoader: false,
     inquiry: '',
     page: 1,
     images: [],
@@ -24,7 +24,7 @@ export class App extends Component {
     const { inquiry, page } = this.state;
 
     if (oldInquiry !== inquiry || oldPage !== page) {
-      this.setState({ status: 'pending' });
+      this.setState({ showLoader: true });
       const response = getImages(inquiry, page);
 
       response.then(res => {
@@ -35,10 +35,8 @@ export class App extends Component {
         this.setState(({ images }) => ({
           images: [...images, ...res.data.hits],
         }));
-        this.setState({ status: 'resolved' });
-        setTimeout(() => {
-          window.scrollTo(0, 10000);
-        }, 0);
+
+        this.setState({ showLoader: false });
       });
     }
   }
@@ -65,12 +63,12 @@ export class App extends Component {
   };
 
   render() {
-    const { status, images, showModal } = this.state;
+    const { showLoader, images, showModal } = this.state;
     return (
       <div>
         <Searchbar onSubmit={this.formSubmit} />
-        {status === 'pending' && <Loader />}
-        {status === 'resolved' && (
+        {showLoader && <Loader />}
+        {images.length ? (
           <Container>
             <ImageGallery
               images={this.state.images}
@@ -78,6 +76,8 @@ export class App extends Component {
             />
             {images.length !== 0 && <LoadMore onLoadMore={this.onLoadMore} />}
           </Container>
+        ) : (
+          <></>
         )}
         {showModal && (
           <Modal onClose={this.toggleModal} modalImg={this.state.modalImg} />
