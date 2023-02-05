@@ -3,7 +3,7 @@ import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
-import getImages from 'components/API/Api';
+import getImages from 'API/Api';
 import { LoadMore } from '../LoadMore/LoadMore';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
@@ -31,6 +31,7 @@ export class App extends Component {
         if (res.data.hits.length === 0) {
           toast.error('Nothing was found');
         }
+
         this.setState(({ images }) => ({
           images: [...images, ...res.data.hits],
         }));
@@ -43,7 +44,6 @@ export class App extends Component {
   }
 
   onLoadMore = e => {
-    e.preventDefault();
     this.setState(({ page }) => ({
       page: page + 1,
     }));
